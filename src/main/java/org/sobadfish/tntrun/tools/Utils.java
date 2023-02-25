@@ -15,7 +15,11 @@ import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.FloatTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.utils.DyeColor;
+import com.smallaswater.npc.data.RsNpcConfig;
+import com.smallaswater.npc.variable.BaseVariableV2;
 import org.sobadfish.tntrun.manager.TotalManager;
+import org.sobadfish.tntrun.room.GameRoom;
+import org.sobadfish.tntrun.room.config.GameRoomConfig;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
@@ -25,7 +29,7 @@ import java.util.Random;
 import java.util.SplittableRandom;
 
 
-public class Utils {
+public class Utils extends BaseVariableV2 {
 
     private static final SplittableRandom RANDOM = new SplittableRandom(System.currentTimeMillis());
 
@@ -284,4 +288,12 @@ public class Utils {
     }
 
 
+    @Override
+    public void onUpdate(Player player, RsNpcConfig rsNpcConfig) {
+        int a = 0;
+        for(GameRoom room: TotalManager.getRoomManager().getRooms().values()){
+            a += room.getInRoomPlayers().size();
+            }
+        addVariable("{TntrunPlayers}", String.valueOf(a));
+    }
 }

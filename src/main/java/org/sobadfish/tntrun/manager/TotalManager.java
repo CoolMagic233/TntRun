@@ -4,10 +4,12 @@ import cn.nukkit.Player;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.TextFormat;
+import com.smallaswater.npc.variable.VariableManage;
 import org.sobadfish.tntrun.manager.data.PlayerDataManager;
 import org.sobadfish.tntrun.manager.data.PlayerTopManager;
 import org.sobadfish.tntrun.panel.lib.AbstractFakeInventory;
 import org.sobadfish.tntrun.room.config.GameRoomConfig;
+import org.sobadfish.tntrun.tools.Utils;
 
 import java.io.File;
 
@@ -55,6 +57,12 @@ public class TotalManager {
         TotalManager.plugin = pluginBase;
         checkServer();
         loadConfig();
+        try {
+            Class.forName("com.smallaswater.npc.variable.BaseVariableV2");
+            VariableManage.addVariableV2("TntRun", Utils.class);
+        } catch (Exception ignored) {
+
+        }
         ThreadManager.init();
     }
 
